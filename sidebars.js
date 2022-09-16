@@ -24,7 +24,7 @@ const sidebars = {
         type: 'generated-index',
         title: 'Queries',
         description: 'Learn about the most important queries!',
-        slug: '/query',
+        slug: '/queries',
       },
       collapsed: false,
       items: [    
