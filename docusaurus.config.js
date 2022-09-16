@@ -53,6 +53,8 @@ const config = {
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
+      twitterImage: 'img/logo.png',
+      image: 'img/logo.png',
       metadata: [
         { name: 'keywords', content: 'arweave, graphql, dapp' },
       ],
