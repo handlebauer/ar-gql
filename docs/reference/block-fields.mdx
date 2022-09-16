@@ -1,0 +1,23 @@
+---
+title: Block Fields
+sidebar_position: 3
+---
+
+```
+query {
+    blocks("""arguments here""") {
+        pageInfo: {
+            hasNextPage
+        },
+        edges {
+            cursor
+            node {
+                id
+                timestamp
+                height
+                previous
+            }
+        }
+    }
+}
+```

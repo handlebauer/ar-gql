@@ -1,0 +1,109 @@
+---
+title: Pagination
+---
+
+## Overview
+
+Gateways often limit the result set to 100 items. Depending on your needs, you may want to loop through pages and fetch additional data.
+
+Upon receiving the JSON response for the first page, note the cursor field. The cursor is used in subsequent queries to fetch the next page.
+
+
+```graphql title="GraphQL Request"
+query {
+  transactions(tags: [{ name: "App-Name", values: "Test" }]) {
+    edges {
+      cursor # <—— don't forget to include this
+      node {
+        id
+      }
+    }
+  }
+}
+```
+
+```json title="JSON Response"
+{
+  "data": {
+    "transactions": {
+      "edges": [
+        {
+          "cursor": "WyIyMDIyLTA5LTE2VDA1OjMzOjU5LjIyN1oiLDFd", // <—— the cursor!
+          "node": {
+            "id": "..."
+          }
+        }
+        // ... 99 more edges
+      ]
+    }
+  }
+}
+```
+
+When making a request for the next page, specify the number of items to output by using the `first` key in the argument set. When `first` is 5, for example, the result set will return 5 transactions per page. Before executing the query, you must also specify the `after` string (which is just the value of `cursor` from the previous page) in order to fetch the subsequent page.
+
+```graphql title="Second GraphQL Request"
+query {
+    transactions(first: 5, after: "WyIyMDIwLTA5LTIzVDE2OjQ0OjE0LjY5MloiLDFd") {
+        edges {
+            cursor # include this again (!) if you want to allow for further pagination
+            node {
+                id
+            }
+        }
+    }
+}
+```
+
+## Example
+
+There are many scenarios in which you might want to seek out pagination. In the following example, basic recursion is used to retrieve the IDs of all transactions tagged with `{ name: "App-Name", values: "Test" }`.
+
+```js
+import fetch from 'node-fetch'
+
+const url = 'https://arweave.net/graphql'
+
+async function findAllResults(results = [], hasNextPage = true, cursor = '') {
+  if (hasNextPage === false) {
+    // Finish up once there are no more pages to traverse
+    return results
+  }
+
+  const query = `
+    query {
+      transactions(
+        tags: [{ name: "App-Name", values: "Test" }]
+        after: "${cursor}"
+      ) {
+        pageInfo {
+          hasNextPage
+        }
+        edges {
+          cursor
+          node {
+            id
+          }
+        }
+      }
+    }
+  `
+  const init = {
+    method: 'post',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ query }),
+  }
+
+  const selector = ({ data }) => [data.transactions.edges, data.transactions.pageInfo.hasNextPage, data.transactions.edges.at(-1).cursor]
+
+  const { data } = await fetch(url, init).then(response => response.json())
+
+  return findAllResults(
+    results.concat(data.transactions.edges),
+    data.transactions.pageInfo.hasNextPage,
+    data.transactions.edges.at(-1).cursor
+  )
+}
+
+const results = await findAllResults()
+```

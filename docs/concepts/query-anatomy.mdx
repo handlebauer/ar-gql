@@ -1,0 +1,60 @@
+---
+title: Query Anatomy
+---
+
+## Generic query anatomy
+
+Each GraphQL query operation is formalized by three distinct components:
+1. Name
+2. Arguments
+3. Fields
+
+In other words:
+
+```
+query {
+  name (arguments) {
+    fields
+  }
+}
+```
+
+### Name
+
+The name of the target operation. In our case, this will be either: 
+
+`transaction`, `transactions`, `block`, or `blocks`.
+
+### Arguments
+
+Arguments for a given query delimit the desired selection set. An example in our case might be:
+
+`tags: [{ name: "App-Name" values: "Test" }]`.
+
+### Fields
+
+Fields describe the units of data to return in the consequent JSON response. Looking for transaction IDs? 
+
+```graphql
+edges {
+  node {
+    id
+  }
+}
+```
+
+## Example
+
+Combining all three components constitues a query and looks like the following:
+
+```graphql
+query {
+  transactions(tags: [{ name: "App-Name", values: "Test" }]) {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+```

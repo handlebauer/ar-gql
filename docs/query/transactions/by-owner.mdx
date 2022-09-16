@@ -1,0 +1,24 @@
+---
+title: By Owner
+sidebar_position: 3
+---
+
+## Find transactions by owner
+
+You may retrieve one or more transactions by specifying recipient address(es) in an array:
+
+:::tip
+Omitting the square brackets is permissible if you specify only one owner
+:::
+
+```graphql
+query {
+    transactions(owners:["M6w588ZkR8SVFdPkNXdBy4sqbMN0Y3F8ZJUWm2WCm8M"]) {
+        edges {
+            node {
+                id
+            }
+        }
+    }
+}
+```

@@ -1,0 +1,24 @@
+---
+title: By ID
+sidebar_position: 2
+---
+
+## Find transactions by ID
+
+You may retrieve one or more transactions by specifying their IDs in an array:
+
+:::tip
+Omitting the square brackets is permissible if you specify only one ID
+:::
+
+```graphql
+query {
+    transactions(ids: ["G-1t0Lqysin897HC3IV8xu_Mr884B-Mo5YEnlhUH54k"]) {
+        edges {
+            node {
+                id
+            }
+        }
+    }
+}
+```

@@ -1,0 +1,28 @@
+---
+title: By Block Range
+sidebar_position: 3
+---
+
+## Find blocks by block range
+
+You may utilize the height parameter with a "min" and "max" value. This will return blocks within a specified range. The following is an example that retrieves blocks 587540 to 587550:
+
+:::tip
+Omitting the square brackets is permissible if you specify only one ID
+:::
+
+```graphql
+query {
+    blocks(height: { min: 587540, max: 587550 }) {
+        edges {
+            cursor
+            node {
+                id
+                timestamp
+                height
+                previous
+            }
+        }
+    }
+}
+```

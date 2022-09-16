@@ -1,0 +1,53 @@
+---
+title: Getting Started
+---
+
+# Getting Started
+
+### Assumptions
+
+- You have node (>= v16.17.0) installed
+- You enabled esm (`"type": "module"`) in your `package.json`
+- You ran `npm i node-fetch`
+
+### Writing your first query
+
+```js title="project/index.js"
+import fetch from 'node-fetch'
+
+const url = 'https://arweave.net/graphql'
+
+const query = `
+  query {
+    transactions(tags: [{ name: "App-Name", values: "Test" }]) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`
+const init = {
+  method: 'post',
+  headers: { 'content-type': 'application/json' }, // 
+  body: JSON.stringify({ query }),
+}
+
+const { data } = await fetch(url, init).then(response => response.json())
+
+/** console.log(data)
+  {
+    transactions: {
+      edges: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ]
+    }
+  }
+ */
+```
+

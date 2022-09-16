@@ -1,0 +1,24 @@
+---
+title: By Recipient
+sidebar_position: 5
+---
+
+## Find transactions by recipient
+
+You may retrieve one or more transactions by specifying recipient address(es) in an array:
+
+:::tip
+Omitting the square brackets is permissible if you specify only one recipient
+:::
+
+```graphql
+query {
+    transactions(recipients:["M6w588ZkR8SVFdPkNXdBy4sqbMN0Y3F8ZJUWm2WCm8M"]) {
+        edges {
+            node {
+                id
+            }
+        }
+    }
+}
+```

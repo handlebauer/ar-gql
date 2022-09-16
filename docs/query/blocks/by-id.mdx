@@ -1,0 +1,28 @@
+---
+title: By ID
+sidebar_position: 2
+---
+
+## Find blocks by ID
+
+You may retrieve metadata for one or more blocks by specifying their IDs in an array.
+
+:::tip
+Omitting the square brackets is permissible if you specify only one ID
+:::
+
+```graphql
+query {
+    blocks(ids: ["J08jRl2S5X0a-wF9bnLvsD_MgEsWpBMttBOWgxpiAdtbi75_HCFCg1M-necyFSD4"]) {
+      edges {
+        cursor
+        node {
+            id
+            timestamp
+            height
+            previous  
+        }
+      }
+    }
+}
+```

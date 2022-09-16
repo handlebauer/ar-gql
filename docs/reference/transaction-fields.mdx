@@ -1,0 +1,52 @@
+---
+title: Transaction Fields
+sidebar_position: 2
+---
+
+```
+query {
+    transactions("""arguments here""") {
+        pageInfo: {
+            hasNextPage
+        },
+        edges {
+            cursor
+            node {
+                id
+                anchor
+                signature
+                recipient
+                owner {
+                    address
+                    key
+                }
+                fee {
+                    winston
+                    ar
+                }
+                quantity {
+                    winston
+                    ar
+                }
+                data {
+                    size
+                    type
+                }
+                tags {
+                    name
+                    value
+                }
+                block {
+                    id
+                    timestamp
+                    height
+                    previous
+                }
+                parent {
+                    id
+                }
+            }
+        }
+    }
+}
+```
