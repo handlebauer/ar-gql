@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'ArGQL Guide',
   tagline: 'Arweave GraphQL Guide',
-  url: 'ar-gql.vercel.app',
+  url: 'https://ar-gql.vercel.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
