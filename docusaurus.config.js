@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'ArGQL Guide',
   tagline: 'Arweave GraphQL Guide',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'ar-gql.vercell.app',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -16,8 +16,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'handlebauer', // Usually your GitHub org/user name.
+  projectName: 'ar-gql', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -50,12 +50,16 @@ const config = {
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    (
+      {
         colorMode: {
         defaultMode: 'dark',
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
+      metadata: [
+        { name: 'keywords', content: 'arweave, graphql, dapp' },
+      ],
       navbar: {
         title: 'ArGQL Guide',
         logo: {
