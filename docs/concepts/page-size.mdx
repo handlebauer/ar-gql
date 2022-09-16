@@ -3,3 +3,26 @@ title: Page Size Limits
 sidebar_position: 4
 ---
 
+Most gateways set the default page size to 10 with an upper-bound of 100.
+
+You can control the number of results returned per page by using the `first` argument:
+
+:::tip
+When paginating through results, you may encounter [rate-limits](#)
+:::
+
+```graphql
+query {
+    transactions(
+        tags: [{ name: "App-Name", values: "ArGQL-Test" }]
+        first: 100 # <—— between 1-100 (gateway-dependent)
+    ) {
+        edges {
+            node {
+                id
+            }
+        }
+    }
+}
+```
+

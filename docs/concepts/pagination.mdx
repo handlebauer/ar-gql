@@ -5,16 +5,18 @@ sidebar_position: 2
 
 ## Overview
 
-Gateways often limit the result set to 100 items. Depending on your needs, you may want to loop through pages and fetch additional data.
+GraphQL endpoints often limit the result set to 100 items. Depending on your needs, you may want to loop through pages and fetch additional data.
 
-Upon receiving the JSON response for the first page, note the cursor field. The cursor is used in subsequent queries to fetch the next page.
-
+For every query you make, you may include `hasNextPage` and `cursor` to set yourself up for pagination if the subsequent results are limited by the page size. 
 
 ```graphql title="GraphQL Request"
 query {
   transactions(tags: [{ name: "App-Name", values: "Test" }]) {
+    pageInfo {
+      hasNextPage # <—— don't forget to include this
+    }
     edges {
-      cursor # <—— don't forget to include this
+      cursor # <—— nor this
       node {
         id
       }
@@ -23,18 +25,23 @@ query {
 }
 ```
 
+Upon receiving the JSON response for the first page, note the cursor field. The cursor is used in subsequent queries to fetch the next page.
+
 ```json title="JSON Response"
 {
   "data": {
     "transactions": {
+      "pageInfo": {
+          "hasNextPage": true // <—— there are more!
+      },
       "edges": [
+        // ... 9 previous edges
         {
           "cursor": "WyIyMDIyLTA5LTE2VDA1OjMzOjU5LjIyN1oiLDFd", // <—— the cursor!
           "node": {
             "id": "..."
           }
         }
-        // ... 99 more edges
       ]
     }
   }
@@ -46,6 +53,9 @@ When making a request for the next page, specify the number of items to output b
 ```graphql title="Second GraphQL Request"
 query {
     transactions(first: 5, after: "WyIyMDIwLTA5LTIzVDE2OjQ0OjE0LjY5MloiLDFd") {
+        pageInfo {
+            hasNextPage
+        }
         edges {
             cursor # include this again (!) if you want to allow for further pagination
             node {
@@ -58,14 +68,16 @@ query {
 
 ## Example
 
-There are many scenarios in which you might want to seek out pagination. In the following example, basic recursion is used to retrieve the IDs of all transactions tagged with `{ name: "App-Name", values: "Test" }`.
+There are many scenarios in which you might want to seek out pagination. In the following example, basic recursion is used to retrieve the IDs of all transactions tagged with `{ name: "App-Name", values: "ArGQL-Test" }`.
 
 ```js
 import fetch from 'node-fetch'
 
 const url = 'https://arweave.net/graphql'
 
-async function findAllResults(results = [], hasNextPage = true, cursor = '') {
+async function findAllResults(results, hasNextPage = true, cursor = '') {
+  cursor && console.log(`Current cursor: ${cursor}`)
+  
   if (hasNextPage === false) {
     // Finish up once there are no more pages to traverse
     return results
@@ -74,7 +86,8 @@ async function findAllResults(results = [], hasNextPage = true, cursor = '') {
   const query = `
     query {
       transactions(
-        tags: [{ name: "App-Name", values: "Test" }]
+        tags: [{ name: "App-Name", values: "ArGQL-Test" }]
+        first: 5
         after: "${cursor}"
       ) {
         pageInfo {
@@ -106,5 +119,5 @@ async function findAllResults(results = [], hasNextPage = true, cursor = '') {
   )
 }
 
-const results = await findAllResults()
+const results = await findAllResults([])
 ```

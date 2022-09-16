@@ -4,22 +4,48 @@ title: Getting Started
 
 # Getting Started
 
+## First things first
+
+### What are you after?
+
+As with all programming, you're on the hunt for a desired output. Implied in this, is possession over certain inputs.
+
+Let's assume you're using [ArConnect](https://www.arconnect.io) to log users into your new dApp. Once a user has authenticated, you'll have access to their wallet address (public key).
+
+Now, let's say you want to display the last 10 transaction they made using your dApp.
+
+In this case, your input is the user's wallet address (as well as your dApp's `App-Name` tag), and the desired output is 10 transaction IDs.
+
+### Working backwards 
+
+Using our example, let's set out to satisfy our objective by working backwards:
+
+1. Start by identifying desired outputs (transaction IDs)
+2. Find the appropriate [transaction queries](query/transactions) given your input (in our case, [owner](query/transactions/owner) and [transaction tags](query/transactions/by-tag))
+3. Write and execute your query
+
+## Real-world example
+
 ### Assumptions
 
 - You have node (>= v16.17.0) installed
 - You enabled esm (`"type": "module"`) in your `package.json`
 - You ran `npm i node-fetch`
 
-### Writing your first query
+### Executing your first query
 
 ```js title="project/index.js"
 import fetch from 'node-fetch'
 
-const url = 'https://arweave.net/graphql'
+const owner = 'ZaMsGtl6jiJG9rJvTBK5nXil5WNREg498FTP37HYabk'
+const appName = 'ArGQL-Test'
 
 const query = `
   query {
-    transactions(tags: [{ name: "App-Name", values: "Test" }]) {
+    transactions(
+      owners: "${owner}"
+      tags: [{ name: "App-Name", values: "${appName}" }]
+    ) {
       edges {
         node {
           id
@@ -28,6 +54,8 @@ const query = `
     }
   }
 `
+
+const url = 'https://arweave.net/graphql'
 const init = {
   method: 'post',
   headers: { 'content-type': 'application/json' },
@@ -49,5 +77,11 @@ const { data } = await fetch(url, init).then(response => response.json())
     }
   }
  */
+
+/** @type {string[]} */
+const transactionIds = data.transactions.edges.map(edge => edge.node.id)
 ```
 
+:::tip
+The above fetches only the transaction IDs. See [arweave-js](https://github.com/ArweaveTeam/arweave-js) on the subject of fetching the actual transaction data.
+:::
