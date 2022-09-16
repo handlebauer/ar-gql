@@ -53,7 +53,7 @@ const config = {
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
-      image: 'img/og-logo-v2.png',
+      image: 'img/og-logo-v3.png',
       metadata: [
         { name: 'keywords', content: 'arweave, graphql, dapp' },
       ],
