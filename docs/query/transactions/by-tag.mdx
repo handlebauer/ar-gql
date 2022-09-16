@@ -3,9 +3,9 @@ title: By Tag
 sidebar_position: 4
 ---
 
-## Find transactions by tag
+## How to find transaction metadata by tag
 
-You may retrieve transactions via tag name/value pairs.
+You may retrieve transaction metadata via tag name/value pairs.
 
 ### Single Tag
 
@@ -17,7 +17,7 @@ Omitting the square brackets is permissible if you specify only one value per ta
 
 ```graphql
 query {
-    transactions(tags: { name: "App-Name", values: ["test"] }) {
+    transactions(tags: { name: "App-Name", values: ["Test"] }) {
         edges {
         node {
             id
@@ -29,7 +29,7 @@ query {
 
 ### Multiple Tags
 
-Alternatively, look up transactions using multiple tags like so:
+Alternatively, you may look up transactions using multiple tags like so:
 
 ```graphql
 query {
@@ -46,5 +46,4 @@ query {
           }
     }
 }
-
 ```
