@@ -15,16 +15,24 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Custom */
+  --ifm-color-gray-800: #31363F; /* targets border-right of sidebar */
+  --ifm-menu-color-background-active: #2c3035; /* targets background-color for active sidebar link */ 
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #E66EBF;
+  --ifm-color-primary-dark: #E8E8E8;
+  --ifm-color-primary-darker: #E3E3E3;
+  --ifm-color-primary-darkest: #DEDEDE;
+  --ifm-color-primary-light: #F2F2F2;
+  --ifm-color-primary-lighter: #F7F7F7;
+  --ifm-color-primary-lightest: #FCFCFC;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.navbar, .footer--dark {
+  background-color: #1E2127;
 }
