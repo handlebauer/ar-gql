@@ -25,13 +25,17 @@ query {
 
 The name of the target operation. In our case, this will be either: 
 
-`transaction`, `transactions`, `block`, or `blocks`.
+> `transactions` 
+
+or 
+
+> `blocks`
 
 ### Arguments
 
-Arguments for a given query delimit the desired selection set. An example in our case might be:
+Arguments for a given query delimit the desired selection set. An example in our case might be: 
 
-`tags: [{ name: "App-Name" values: "Test" }]`.
+> `tags: [{ name: "App-Name" values: "ArGQL-Test" }]`.
 
 ### Fields
 
@@ -51,7 +55,7 @@ Combining all three components constitues a query and looks like the following:
 
 ```graphql
 query {
-  transactions(tags: [{ name: "App-Name", values: "Test" }]) {
+  transactions(tags: [{ name: "App-Name", values: "ArGQL-Test" }]) {
     edges {
       node {
         id
