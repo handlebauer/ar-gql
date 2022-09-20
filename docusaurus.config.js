@@ -71,6 +71,21 @@ const config = {
             label: 'Docs',
           },
           {
+            to: 'queries',
+            label: 'Queries',
+            position: 'left'
+          },
+          {
+            to: 'concepts',
+            label: 'Concepts',
+            position: 'left'
+          },
+          {
+            to: 'resources',
+            label: 'Resources',
+            position: 'left'
+          },
+          {
             href: 'https://github.com/handlebauer/ar-gql',
             label: 'GitHub',
             position: 'right',
@@ -86,6 +101,22 @@ const config = {
               {
                 label: 'Introduction',
                 to: '/',
+              },
+              {
+                label: 'Getting Started',
+                to: 'getting-started',
+              },
+              {
+                label: 'Queries',
+                to: 'queries',
+              },
+              {
+                label: 'Concepts',
+                to: 'concepts',
+              },
+              {
+                label: 'Resources',
+                to: 'resources',
               },
             ],
           },
