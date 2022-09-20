@@ -1,0 +1,17 @@
+---
+title: Rate Limits
+sidebar_position: 5
+---
+
+Rate-limits are variable and dependent on the [gateway provider](/resources/endpoints).
+
+## [ar.io](https://ar.io)
+
+### Overview
+
+Rate-limits for ar.io's gateways are as follows:
+
+- GraphQL endpoint ([/graphql](https://arweave.net/graphql)): **600 requests** per **5 minutes**
+- Global ([/*](https://arweave.net)): **30,000 requests** per **5 minutes**
+
+Once rate-limit are exceeded, the requesting IP is issued a 5 minute cool-down period.
